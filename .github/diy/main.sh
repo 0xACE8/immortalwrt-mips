@@ -1,6 +1,13 @@
 #!/bin/bash
 
-git clone --depth 1 https://github.com/padavanonly/immortalwrt && mv immortalwrt/* . && rm -rf immortalwrt && rm -rf toolchain/gcc
+git clone --depth 1 https://github.com/padavanonly/immortalwrt && mv immortalwrt/* . && rm -rf immortalwrt 
+rm -rf toolchain/binutils
+rm -rf toolchain/gcc
+rm -rf toolchain/gdb
+rm -rf toolchain/glibc
+rm -rf toolchain/musl
+rm -rf toolchain/nasm
+
 
 function merge_package() {
     # 参数1是分支名,参数2是库地址,参数3是所有文件下载到指定路径。
@@ -25,6 +32,11 @@ function merge_package() {
     done
     cd "$rootdir"
 }
-
+merge_package master https://github.com/coolsnowwolf/lede toolchain toolchain/binutils
 merge_package master https://github.com/coolsnowwolf/lede toolchain toolchain/gcc
+merge_package master https://github.com/coolsnowwolf/lede toolchain toolchain/gdb
+merge_package master https://github.com/coolsnowwolf/lede toolchain toolchain/glibc
+merge_package master https://github.com/coolsnowwolf/lede toolchain toolchain/musl
+merge_package master https://github.com/coolsnowwolf/lede toolchain toolchain/nasm
+
 exit 0
